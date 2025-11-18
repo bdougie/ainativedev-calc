@@ -1,0 +1,19 @@
+{
+  "name": "Calculator",
+  "short_name": "Calc",
+  "description": "A modern, responsive calculator PWA",
+  "theme_color": "#1a1a1a",
+  "background_color": "#0f0f0f",
+  "display": "standalone",
+  "orientation": "portrait",
+  "scope": "/",
+  "start_url": "/",
+  "icons": [
+    {
+      "src": "icons/icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}
