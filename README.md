@@ -22,7 +22,7 @@ This project showcases how to build a functional calculator through iterative pr
 
 This repository contains a series of prompts that build a complete calculator. Each prompt is designed to be clear, specific, and build upon previous work.
 
-### 1. Basic Calculator PWA Interface (UI Only)
+### ✅ 1. Basic Calculator PWA Interface (UI Only)
 
 ```
 Create a basic calculator PWA (Progressive Web App) interface with HTML, CSS, and JavaScript.
