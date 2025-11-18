@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Icon Generator</title>
+</head>
+<body>
+    <canvas id="canvas"></canvas>
+    <script>
+        // Generate calculator icons in different sizes
+        const sizes = [72, 96, 128, 144, 152, 192, 384, 512];
+        
+        sizes.forEach(size => {
+            const canvas = document.createElement('canvas');
+            const ctx = canvas.getContext('2d');
+            canvas.width = size;
+            canvas.height = size;
+            
+            // Background gradient
+            const gradient = ctx.createLinearGradient(0, 0, size, size);
+            gradient.addColorStop(0, '#1a1a1a');
+            gradient.addColorStop(1, '#2a2a2a');
+            ctx.fillStyle = gradient;
+            ctx.fillRect(0, 0, size, size);
+            
+            // Add calculator text
+            ctx.fillStyle = '#ff9500';
+            ctx.font = `bold ${size * 0.5}px Arial`;
+            ctx.textAlign = 'center';
+            ctx.textBaseline = 'middle';
+            ctx.fillText('C', size / 2, size / 2);
+            
+            // Add subtle border
+            ctx.strokeStyle = '#ff9500';
+            ctx.lineWidth = size * 0.02;
+            ctx.strokeRect(size * 0.1, size * 0.1, size * 0.8, size * 0.8);
+            
+            // Convert to blob and download
+            canvas.toBlob(blob => {
+                const a = document.createElement('a');
+                a.download = `icon-${size}.png`;
+                a.href = URL.createObjectURL(blob);
+                document.body.appendChild(a);
+                a.click();
+                document.body.removeChild(a);
+            });
+        });
+        
+        document.body.innerHTML = '<h1>Icons generated! Check your downloads folder.</h1>';
+    </script>
+</body>
+</html>

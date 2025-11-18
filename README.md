@@ -25,7 +25,7 @@ This repository contains a series of prompts that build a complete calculator. E
 ### 1. Basic Calculator Interface
 
 ```
-Create a basic calculator PWAapplication with HTML, CSS, and JavaScript. The calculator should have:
+Create a basic calculator PWA application with HTML, CSS, and JavaScript. The calculator should have:
 - A display screen showing current number/result
 - Number buttons (0-9)
 - Basic operation buttons (+, -, ×, ÷)
