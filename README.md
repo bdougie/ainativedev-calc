@@ -22,33 +22,63 @@ This project showcases how to build a functional calculator through iterative pr
 
 This repository contains a series of prompts that build a complete calculator. Each prompt is designed to be clear, specific, and build upon previous work.
 
-### 1. Basic Calculator Interface
+### 1. Basic Calculator PWA Interface (UI Only)
 
 ```
-Create a basic calculator PWA application with HTML, CSS, and JavaScript. The calculator should have:
-- A display screen showing current number/result
-- Number buttons (0-9)
-- Basic operation buttons (+, -, ×, ÷)
-- An equals button (=)
-- A clear button (C)
+Create a basic calculator PWA (Progressive Web App) interface with HTML, CSS, and JavaScript.
+
+IMPORTANT: This step is for the UI and PWA setup ONLY. Do NOT implement any calculation logic.
+
+The calculator should have:
+- A display screen showing "0" initially
+- Number buttons (0-9) that only provide visual feedback when clicked
+- Basic operation buttons (+, -, ×, ÷) that only provide visual feedback
+- An equals button (=) that only provides visual feedback
+- A clear button (C) that resets the display to "0"
 - Clean, modern styling with a dark theme
 - Responsive design that works on mobile devices
+- Button click animations for visual feedback
 
-The calculator should visually resemble a real calculator with a grid layout for the buttons.
+PWA requirements:
+- Create a manifest.json for app installation
+- Add a service worker for offline capability
+- Include app icons (at least a basic SVG icon)
+- Make it installable on mobile devices
+- Set up proper viewport and theme colors
+
+The buttons should:
+- Have hover and active states
+- Show visual feedback when clicked (animations)
+- Console.log their value when clicked (for debugging)
+- NOT perform any calculations or update the display (except Clear)
+
+Create a grid layout that resembles a real calculator. The calculator should look complete but not function yet.
 ```
 
-### 2. Arithmetic Operations
+### 2. Arithmetic Operations (Add Functionality)
 
 ```
-Add functionality to the calculator to handle basic arithmetic operations:
-- Implement addition, subtraction, multiplication, and division
-- Handle number input and display updates
-- Process operations when the equals button is pressed
-- Support chaining operations (e.g., 5 + 3 × 2)
-- Handle decimal point input and calculations
-- Ensure the display updates correctly as users type
+Now add working functionality to the existing calculator interface from Step 1.
 
-Make sure the calculator follows standard order of operations and handles edge cases like division by zero gracefully.
+IMPORTANT: You are adding functionality to an existing UI. The buttons and display already exist.
+
+Implement the following features:
+- Make number buttons (0-9) update the display when clicked
+- Make the decimal point button add a decimal to the current number
+- Implement basic arithmetic operations (+, -, ×, ÷)
+- Make the equals button calculate and show the result
+- Ensure the clear button resets all calculator state
+- Handle sequential operations (e.g., 2 + 3 = 5, then + 4 = 9)
+
+Functionality requirements:
+- Display should update as users type numbers
+- Support decimal numbers (prevent multiple decimal points)
+- Perform the calculation when equals is pressed
+- Handle division by zero with an error message
+- Support operation chaining (but NOT order of operations yet)
+- Add keyboard support for numbers and basic operations
+
+Note: For this step, operations should be evaluated left-to-right as entered (5 + 3 × 2 = 16, not 11).
 ```
 
 ### 3. Advanced Mathematical Functions
