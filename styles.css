@@ -243,3 +243,291 @@ body {
         animation: none;
     }
 }
+
+/* Easter Egg Styles */
+.easter-egg-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 10000;
+}
+
+.easter-egg-message {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.95) 0%, rgba(240, 240, 240, 0.95) 100%);
+    color: #333;
+    padding: 20px 30px;
+    border-radius: 15px;
+    font-size: 1.5rem;
+    font-weight: bold;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+    animation: easterEggPop 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.easter-egg-emoji {
+    font-size: 2rem;
+    animation: bounceEmoji 1s infinite;
+}
+
+.easter-egg-text {
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+@keyframes easterEggPop {
+    0% {
+        opacity: 0;
+        transform: translate(-50%, -50%) scale(0.5);
+    }
+    100% {
+        opacity: 1;
+        transform: translate(-50%, -50%) scale(1);
+    }
+}
+
+@keyframes bounceEmoji {
+    0%, 100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-10px);
+    }
+}
+
+/* Matrix Rain Effect */
+.matrix-rain {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    pointer-events: none;
+    z-index: 9999;
+}
+
+.matrix-column {
+    position: absolute;
+    top: -100%;
+    color: #0f0;
+    font-family: monospace;
+    font-size: 20px;
+    animation: matrixFall 3s linear infinite;
+    text-shadow: 0 0 5px #0f0;
+    opacity: 0.8;
+}
+
+@keyframes matrixFall {
+    0% {
+        top: -100%;
+    }
+    100% {
+        top: 100%;
+    }
+}
+
+/* Glitch Effect */
+.glitch-effect {
+    animation: glitch 0.3s linear infinite;
+}
+
+@keyframes glitch {
+    0%, 100% {
+        transform: translate(0);
+        filter: hue-rotate(0deg);
+    }
+    20% {
+        transform: translate(-2px, 2px);
+        filter: hue-rotate(90deg);
+    }
+    40% {
+        transform: translate(-2px, -2px);
+        filter: hue-rotate(180deg);
+    }
+    60% {
+        transform: translate(2px, 2px);
+        filter: hue-rotate(270deg);
+    }
+    80% {
+        transform: translate(2px, -2px);
+        filter: hue-rotate(360deg);
+    }
+}
+
+/* Spin Effect */
+.spin-effect {
+    animation: spinCalc 1s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+}
+
+@keyframes spinCalc {
+    0% {
+        transform: rotate(0deg) scale(1);
+    }
+    50% {
+        transform: rotate(180deg) scale(1.1);
+    }
+    100% {
+        transform: rotate(360deg) scale(1);
+    }
+}
+
+/* Retro Mode */
+.retro-mode {
+    filter: sepia(1) saturate(2) contrast(1.5);
+}
+
+.retro-mode .calculator {
+    animation: scanlines 8s linear infinite;
+}
+
+@keyframes scanlines {
+    0% {
+        background-position: 0 0;
+    }
+    100% {
+        background-position: 0 10px;
+    }
+}
+
+/* Spy Effect */
+.spy-effect {
+    animation: spyMode 2s ease-in-out;
+}
+
+@keyframes spyMode {
+    0%, 100% {
+        filter: blur(0) grayscale(0);
+    }
+    25% {
+        filter: blur(2px) grayscale(1);
+    }
+    50% {
+        filter: blur(0) grayscale(1) contrast(2);
+    }
+    75% {
+        filter: blur(1px) grayscale(0.5);
+    }
+}
+
+/* Rainbow Effect */
+.rainbow-effect {
+    animation: rainbow 2s linear infinite;
+}
+
+@keyframes rainbow {
+    0% {
+        filter: hue-rotate(0deg) saturate(1.5);
+    }
+    100% {
+        filter: hue-rotate(360deg) saturate(1.5);
+    }
+}
+
+/* Mega Pulse */
+.mega-pulse {
+    animation: megaPulse 1s ease-in-out;
+}
+
+@keyframes megaPulse {
+    0%, 100% {
+        transform: scale(1);
+        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+    }
+    25% {
+        transform: scale(1.05);
+        box-shadow: 0 25px 80px rgba(255, 159, 0, 0.5);
+    }
+    50% {
+        transform: scale(1.1);
+        box-shadow: 0 30px 100px rgba(255, 159, 0, 0.7);
+    }
+    75% {
+        transform: scale(1.05);
+        box-shadow: 0 25px 80px rgba(255, 159, 0, 0.5);
+    }
+}
+
+/* Explode Effect */
+.explode-effect {
+    animation: explode 1.5s ease-out;
+}
+
+@keyframes explode {
+    0% {
+        transform: scale(1) rotate(0deg);
+        opacity: 1;
+    }
+    50% {
+        transform: scale(1.5) rotate(10deg);
+        opacity: 0.8;
+    }
+    100% {
+        transform: scale(1) rotate(0deg);
+        opacity: 1;
+    }
+}
+
+/* Flip Effect */
+.flip-effect {
+    animation: flipCalc 1s ease-in-out;
+}
+
+@keyframes flipCalc {
+    0% {
+        transform: perspective(600px) rotateY(0);
+    }
+    50% {
+        transform: perspective(600px) rotateY(180deg);
+    }
+    100% {
+        transform: perspective(600px) rotateY(360deg);
+    }
+}
+
+/* Special message styles for different effects */
+.easter-egg-message.matrix {
+    background: linear-gradient(135deg, #000 0%, #0f0 100%);
+    color: #0f0;
+    font-family: monospace;
+    text-shadow: 0 0 10px #0f0;
+}
+
+.easter-egg-message.glitch {
+    background: linear-gradient(135deg, #ff0000 0%, #000 100%);
+    color: #fff;
+}
+
+.easter-egg-message.spin {
+    background: linear-gradient(135deg, #ffd700 0%, #ff6347 100%);
+    color: #fff;
+}
+
+.easter-egg-message.retro {
+    background: linear-gradient(135deg, #8b4513 0%, #daa520 100%);
+    color: #fff;
+    font-family: 'Courier New', monospace;
+}
+
+.easter-egg-message.spy {
+    background: linear-gradient(135deg, #000 0%, #333 100%);
+    color: #fff;
+}
+
+.easter-egg-message.rainbow {
+    background: linear-gradient(135deg, #ff0000, #ff7f00, #ffff00, #00ff00, #0000ff, #4b0082, #9400d3);
+    color: #fff;
+}
+
+.easter-egg-message.explode {
+    background: linear-gradient(135deg, #ff0000 0%, #ff6600 100%);
+    color: #fff;
+    font-size: 2rem;
+}
