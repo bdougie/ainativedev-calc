@@ -24,6 +24,8 @@ body {
         inset 0 0 20px rgba(255, 255, 255, 0.05);
     width: 100%;
     max-width: 400px;
+    position: relative;
+    z-index: 10; /* Above matrix rain */
 }
 
 .display {
@@ -311,26 +313,44 @@ body {
     height: 100%;
     overflow: hidden;
     pointer-events: none;
-    z-index: 9999;
+    z-index: 1; /* Behind calculator */
+    opacity: 1;
+    transition: opacity 1s ease-out;
+}
+
+.matrix-rain.fade-out {
+    opacity: 0;
 }
 
 .matrix-column {
     position: absolute;
     top: -100%;
     color: #0f0;
-    font-family: monospace;
-    font-size: 20px;
-    animation: matrixFall 3s linear infinite;
-    text-shadow: 0 0 5px #0f0;
-    opacity: 0.8;
+    font-family: 'Courier New', monospace;
+    font-size: 16px;
+    line-height: 1.2;
+    animation: matrixFall linear infinite;
+    text-shadow: 0 0 8px #0f0, 0 0 15px #0f0;
+    opacity: 0;
+    writing-mode: vertical-rl;
+    text-orientation: upright;
+    letter-spacing: 8px;
 }
 
 @keyframes matrixFall {
     0% {
         top: -100%;
+        opacity: 0;
+    }
+    10% {
+        opacity: 0.8;
+    }
+    90% {
+        opacity: 0.8;
     }
     100% {
         top: 100%;
+        opacity: 0;
     }
 }
 
@@ -494,10 +514,22 @@ body {
 
 /* Special message styles for different effects */
 .easter-egg-message.matrix {
-    background: linear-gradient(135deg, #000 0%, #0f0 100%);
+    background: linear-gradient(135deg, rgba(0, 0, 0, 0.95) 0%, rgba(0, 255, 0, 0.3) 100%);
     color: #0f0;
-    font-family: monospace;
-    text-shadow: 0 0 10px #0f0;
+    font-family: 'Courier New', monospace;
+    text-shadow: 0 0 10px #0f0, 0 0 20px #0f0;
+    border: 2px solid #0f0;
+    box-shadow: 0 0 30px #0f0, inset 0 0 20px rgba(0, 255, 0, 0.2);
+    animation: matrixMessagePulse 1s ease-in-out infinite;
+}
+
+@keyframes matrixMessagePulse {
+    0%, 100% {
+        box-shadow: 0 0 30px #0f0, inset 0 0 20px rgba(0, 255, 0, 0.2);
+    }
+    50% {
+        box-shadow: 0 0 50px #0f0, inset 0 0 30px rgba(0, 255, 0, 0.3);
+    }
 }
 
 .easter-egg-message.glitch {

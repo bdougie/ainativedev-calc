@@ -326,10 +326,11 @@ class Calculator {
         // Apply the specific effect
         this.applyEffect(config.effect);
         
-        // Remove message after animation
+        // Remove message after animation (longer for matrix effect)
+        const duration = config.effect === 'matrix' ? 5000 : 3000;
         setTimeout(() => {
             message.remove();
-        }, 3000);
+        }, duration);
     }
     
     applyEffect(effect) {
@@ -378,20 +379,30 @@ class Calculator {
         const matrixContainer = document.createElement('div');
         matrixContainer.className = 'matrix-rain';
         
-        for (let i = 0; i < 20; i++) {
+        // Create more columns for better coverage
+        for (let i = 0; i < 30; i++) {
             const column = document.createElement('div');
             column.className = 'matrix-column';
-            column.style.left = `${i * 5}%`;
-            column.style.animationDelay = `${Math.random() * 2}s`;
-            column.textContent = '10101010101010';
+            column.style.left = `${(i * 3.33)}%`;
+            column.style.animationDelay = `${Math.random() * 3}s`;
+            column.style.animationDuration = `${3 + Math.random() * 2}s`;
+            
+            // Mix of 1337 and binary for more hacker feel
+            const patterns = ['1337', '01010101', '1337', '10110010', 'L33T', '01001000', 'H4X0R'];
+            column.textContent = patterns[Math.floor(Math.random() * patterns.length)].repeat(10);
+            
             matrixContainer.appendChild(column);
         }
         
         document.body.appendChild(matrixContainer);
         
+        // Last longer for 1337 easter egg
         setTimeout(() => {
-            matrixContainer.remove();
-        }, 3000);
+            matrixContainer.classList.add('fade-out');
+            setTimeout(() => {
+                matrixContainer.remove();
+            }, 1000);
+        }, 6000);
     }
 }
 

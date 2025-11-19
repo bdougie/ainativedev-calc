@@ -1,4 +1,4 @@
-const CACHE_NAME = 'calculator-v4'; // Easter eggs on equals/enter only
+const CACHE_NAME = 'calculator-v5'; // Enhanced matrix effect
 const urlsToCache = [
   '/',
   '/index.html',
