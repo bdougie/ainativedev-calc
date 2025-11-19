@@ -76,9 +76,9 @@ class Calculator {
             this.toggleSign();
         });
         
-        // Percent button
+        // Percent button - appends % to display
         document.getElementById('percent').addEventListener('click', () => {
-            this.percentage();
+            this.appendPercent();
         });
     }
     
@@ -160,13 +160,16 @@ class Calculator {
         this.updateDisplay();
     }
     
-    toggleSign() {
-        this.currentValue = String(parseFloat(this.currentValue) * -1);
-        this.updateDisplay();
+    appendPercent() {
+        // Append % to the end of the current display value
+        if (!this.currentValue.includes('%')) {
+            this.currentValue = this.currentValue + '%';
+            this.updateDisplay();
+        }
     }
     
-    percentage() {
-        this.currentValue = String(parseFloat(this.currentValue) / 100);
+    toggleSign() {
+        this.currentValue = String(parseFloat(this.currentValue) * -1);
         this.updateDisplay();
     }
     
