@@ -7,14 +7,36 @@ class Calculator {
         this.operator = null;
         this.waitingForOperand = false;
         this.easterEggContainer = null;
+        this.capsLockOn = false;
         this.initializeEventListeners();
         this.createEasterEggContainer();
+        this.setupCapsLockDetection();
     }
     
     createEasterEggContainer() {
         this.easterEggContainer = document.createElement('div');
         this.easterEggContainer.className = 'easter-egg-container';
         document.body.appendChild(this.easterEggContainer);
+    }
+    
+    setupCapsLockDetection() {
+        // Create Caps Lock indicator
+        const indicator = document.createElement('div');
+        indicator.className = 'caps-lock-indicator';
+        indicator.innerHTML = '🔐 EASTER EGGS ACTIVE';
+        indicator.style.display = 'none';
+        document.body.appendChild(indicator);
+        
+        // Track Caps Lock state
+        document.addEventListener('keydown', (event) => {
+            this.capsLockOn = event.getModifierState('CapsLock');
+            indicator.style.display = this.capsLockOn ? 'block' : 'none';
+        });
+        
+        document.addEventListener('keyup', (event) => {
+            this.capsLockOn = event.getModifierState('CapsLock');
+            indicator.style.display = this.capsLockOn ? 'block' : 'none';
+        });
     }
     
     initializeEventListeners() {
@@ -42,9 +64,9 @@ class Calculator {
         });
         
         // Equals button
-        document.getElementById('equals').addEventListener('click', () => {
+        document.getElementById('equals').addEventListener('click', (event) => {
             this.calculate();
-            this.checkForEasterEgg();
+            this.checkForEasterEgg(event);
         });
         
         // Plus/minus button
@@ -72,7 +94,10 @@ class Calculator {
             }
         }
         this.updateDisplay();
-        this.checkForEasterEgg();
+        // Check for Easter eggs on keyboard input
+        if (window.event) {
+            this.checkForEasterEgg(window.event);
+        }
     }
     
     handleOperator(nextOperator) {
@@ -158,7 +183,15 @@ class Calculator {
         }, 200);
     }
     
-    checkForEasterEgg() {
+    checkForEasterEgg(event) {
+        // Only trigger Easter eggs when Caps Lock is on
+        // Check from event if provided, otherwise use tracked state
+        const capsLockActive = event ? event.getModifierState('CapsLock') : this.capsLockOn;
+        
+        if (!capsLockActive) {
+            return;
+        }
+        
         const value = this.currentValue.replace('.', '');
         const easterEggs = {
             '1337': {
@@ -248,8 +281,8 @@ class Calculator {
             }
         };
         
-        // Check for "over 9000"
-        if (parseFloat(value) > 9000) {
+        // Check for specific "over 9000" values (9001 specifically, not everything above 9000)
+        if (value === '9001') {
             this.triggerEasterEgg({
                 message: "IT'S OVER 9000!!",
                 emoji: '💥',

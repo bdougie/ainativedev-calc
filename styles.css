@@ -255,6 +255,36 @@ body {
     z-index: 10000;
 }
 
+/* Caps Lock Indicator */
+.caps-lock-indicator {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    background: linear-gradient(135deg, #4CAF50 0%, #45a049 100%);
+    color: white;
+    padding: 10px 20px;
+    border-radius: 25px;
+    font-size: 0.9rem;
+    font-weight: bold;
+    box-shadow: 0 4px 15px rgba(76, 175, 80, 0.4);
+    z-index: 9998;
+    animation: capsLockPulse 2s ease-in-out infinite;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+@keyframes capsLockPulse {
+    0%, 100% {
+        transform: scale(1);
+        box-shadow: 0 4px 15px rgba(76, 175, 80, 0.4);
+    }
+    50% {
+        transform: scale(1.05);
+        box-shadow: 0 6px 20px rgba(76, 175, 80, 0.6);
+    }
+}
+
 .easter-egg-message {
     position: absolute;
     top: 50%;
