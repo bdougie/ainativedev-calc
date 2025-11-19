@@ -1,4 +1,4 @@
-const CACHE_NAME = 'calculator-v6'; // Fixed matrix timing and fall distance
+const CACHE_NAME = 'calculator-v7'; // Matrix rain properly behind calculator
 const urlsToCache = [
   '/',
   '/index.html',

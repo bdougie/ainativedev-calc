@@ -394,15 +394,16 @@ class Calculator {
             matrixContainer.appendChild(column);
         }
         
-        document.body.appendChild(matrixContainer);
+        // Insert at the beginning of body, before calculator
+        document.body.insertBefore(matrixContainer, document.body.firstChild);
         
-        // Last 5 seconds for 1337 easter egg
+        // Last 6 seconds for 1337 easter egg
         setTimeout(() => {
             matrixContainer.classList.add('fade-out');
             setTimeout(() => {
                 matrixContainer.remove();
             }, 1000);
-        }, 5000);
+        }, 6000);
     }
 }
 
