@@ -1,4 +1,4 @@
-const CACHE_NAME = 'calculator-v5'; // Enhanced matrix effect
+const CACHE_NAME = 'calculator-v6'; // Fixed matrix timing and fall distance
 const urlsToCache = [
   '/',
   '/index.html',

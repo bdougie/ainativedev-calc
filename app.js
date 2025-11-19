@@ -385,7 +385,7 @@ class Calculator {
             column.className = 'matrix-column';
             column.style.left = `${(i * 3.33)}%`;
             column.style.animationDelay = `${Math.random() * 3}s`;
-            column.style.animationDuration = `${3 + Math.random() * 2}s`;
+            column.style.animationDuration = `${2 + Math.random() * 1}s`; // Faster to reach bottom
             
             // Mix of 1337 and binary for more hacker feel
             const patterns = ['1337', '01010101', '1337', '10110010', 'L33T', '01001000', 'H4X0R'];
@@ -396,13 +396,13 @@ class Calculator {
         
         document.body.appendChild(matrixContainer);
         
-        // Last longer for 1337 easter egg
+        // Last 5 seconds for 1337 easter egg
         setTimeout(() => {
             matrixContainer.classList.add('fade-out');
             setTimeout(() => {
                 matrixContainer.remove();
             }, 1000);
-        }, 6000);
+        }, 5000);
     }
 }
 
