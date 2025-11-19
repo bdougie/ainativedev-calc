@@ -7,25 +7,14 @@ class Calculator {
         this.operator = null;
         this.waitingForOperand = false;
         this.easterEggContainer = null;
-        this.capsLockOn = false;
         this.initializeEventListeners();
         this.createEasterEggContainer();
-        this.setupCapsLockDetection();
     }
     
     createEasterEggContainer() {
         this.easterEggContainer = document.createElement('div');
         this.easterEggContainer.className = 'easter-egg-container';
         document.body.appendChild(this.easterEggContainer);
-    }
-    
-    setupCapsLockDetection() {
-        // Create Caps Lock indicator
-        const indicator = document.createElement('div');
-        indicator.className = 'caps-lock-indicator';
-        indicator.innerHTML = '🔐 EASTER EGGS ACTIVE';
-        indicator.style.display = 'none';
-        document.body.appendChild(indicator);
     }
     
     initializeEventListeners() {
@@ -40,21 +29,17 @@ class Calculator {
         
         // Keyboard support
         document.addEventListener('keydown', (event) => {
-            // Update Caps Lock state
-            this.capsLockOn = event.getModifierState('CapsLock');
-            const indicator = document.querySelector('.caps-lock-indicator');
-            if (indicator) {
-                indicator.style.display = this.capsLockOn ? 'block' : 'none';
-            }
-            
             // Handle number keys
             if (event.key >= '0' && event.key <= '9') {
                 this.inputNumber(event.key);
             } else if (event.key === '.') {
                 this.inputNumber('.');
             } else if (event.key === 'Enter' || event.key === '=') {
-                this.calculate();
-                this.checkForEasterEgg();
+                // Check for Easter egg first (before calculation changes the value)
+                const hasEasterEgg = this.checkForEasterEgg();
+                if (!hasEasterEgg) {
+                    this.calculate();
+                }
             } else if (event.key === 'Escape' || event.key === 'c' || event.key === 'C') {
                 this.clear();
             } else if (event.key === '+' || event.key === '-' || event.key === '*' || event.key === '/') {
@@ -77,10 +62,13 @@ class Calculator {
             this.clear();
         });
         
-        // Equals button
+        // Equals button - triggers Easter eggs
         document.getElementById('equals').addEventListener('click', () => {
-            this.calculate();
-            this.checkForEasterEgg();
+            // Check for Easter egg first (before calculation changes the value)
+            const hasEasterEgg = this.checkForEasterEgg();
+            if (!hasEasterEgg) {
+                this.calculate();
+            }
         });
         
         // Plus/minus button
@@ -108,7 +96,6 @@ class Calculator {
             }
         }
         this.updateDisplay();
-        this.checkForEasterEgg();
     }
     
     handleOperator(nextOperator) {
@@ -195,12 +182,9 @@ class Calculator {
     }
     
     checkForEasterEgg() {
-        // Only trigger Easter eggs when Caps Lock is on
-        if (!this.capsLockOn) {
-            return;
-        }
-        
+        // Easter eggs only trigger on equals/enter
         const value = this.currentValue.replace('.', '');
+        let triggered = false;
         const easterEggs = {
             '1337': {
                 message: 'ACCESS GRANTED, H4X0R',
@@ -296,7 +280,7 @@ class Calculator {
                 emoji: '💥',
                 effect: 'explode'
             });
-            return;
+            return true;
         }
         
         // Check for palindromes
@@ -306,7 +290,7 @@ class Calculator {
                 emoji: '🔄',
                 effect: 'flip'
             });
-            return;
+            return true;
         }
         
         // Check for pi
@@ -316,13 +300,16 @@ class Calculator {
                 emoji: '🥧',
                 effect: 'spin'
             });
-            return;
+            return true;
         }
         
         // Check for specific easter eggs
         if (easterEggs[value]) {
             this.triggerEasterEgg(easterEggs[value]);
+            return true;
         }
+        
+        return false;
     }
     
     triggerEasterEgg(config) {
