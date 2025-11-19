@@ -1,4 +1,4 @@
-const CACHE_NAME = 'calculator-v1';
+const CACHE_NAME = 'calculator-v3'; // Updated for Easter eggs with Caps Lock
 const urlsToCache = [
   '/',
   '/index.html',

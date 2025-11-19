@@ -26,17 +26,6 @@ class Calculator {
         indicator.innerHTML = '🔐 EASTER EGGS ACTIVE';
         indicator.style.display = 'none';
         document.body.appendChild(indicator);
-        
-        // Track Caps Lock state
-        document.addEventListener('keydown', (event) => {
-            this.capsLockOn = event.getModifierState('CapsLock');
-            indicator.style.display = this.capsLockOn ? 'block' : 'none';
-        });
-        
-        document.addEventListener('keyup', (event) => {
-            this.capsLockOn = event.getModifierState('CapsLock');
-            indicator.style.display = this.capsLockOn ? 'block' : 'none';
-        });
     }
     
     initializeEventListeners() {
@@ -47,6 +36,31 @@ class Calculator {
                 this.inputNumber(num);
                 this.animateButton(button);
             });
+        });
+        
+        // Keyboard support
+        document.addEventListener('keydown', (event) => {
+            // Update Caps Lock state
+            this.capsLockOn = event.getModifierState('CapsLock');
+            const indicator = document.querySelector('.caps-lock-indicator');
+            if (indicator) {
+                indicator.style.display = this.capsLockOn ? 'block' : 'none';
+            }
+            
+            // Handle number keys
+            if (event.key >= '0' && event.key <= '9') {
+                this.inputNumber(event.key);
+            } else if (event.key === '.') {
+                this.inputNumber('.');
+            } else if (event.key === 'Enter' || event.key === '=') {
+                this.calculate();
+                this.checkForEasterEgg();
+            } else if (event.key === 'Escape' || event.key === 'c' || event.key === 'C') {
+                this.clear();
+            } else if (event.key === '+' || event.key === '-' || event.key === '*' || event.key === '/') {
+                const opMap = {'+': '+', '-': '−', '*': '×', '/': '÷'};
+                this.handleOperator(opMap[event.key]);
+            }
         });
         
         // Operator buttons
@@ -64,9 +78,9 @@ class Calculator {
         });
         
         // Equals button
-        document.getElementById('equals').addEventListener('click', (event) => {
+        document.getElementById('equals').addEventListener('click', () => {
             this.calculate();
-            this.checkForEasterEgg(event);
+            this.checkForEasterEgg();
         });
         
         // Plus/minus button
@@ -94,10 +108,7 @@ class Calculator {
             }
         }
         this.updateDisplay();
-        // Check for Easter eggs on keyboard input
-        if (window.event) {
-            this.checkForEasterEgg(window.event);
-        }
+        this.checkForEasterEgg();
     }
     
     handleOperator(nextOperator) {
@@ -183,12 +194,9 @@ class Calculator {
         }, 200);
     }
     
-    checkForEasterEgg(event) {
+    checkForEasterEgg() {
         // Only trigger Easter eggs when Caps Lock is on
-        // Check from event if provided, otherwise use tracked state
-        const capsLockActive = event ? event.getModifierState('CapsLock') : this.capsLockOn;
-        
-        if (!capsLockActive) {
+        if (!this.capsLockOn) {
             return;
         }
         
