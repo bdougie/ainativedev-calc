@@ -7,6 +7,9 @@ class Calculator {
         this.operator = null;
         this.waitingForOperand = false;
         this.easterEggContainer = null;
+        this.clearButton = document.getElementById('clear');
+        this.lastClearTime = 0;
+        this.clearTimeout = null;
         this.initializeEventListeners();
         this.createEasterEggContainer();
     }
@@ -48,6 +51,28 @@ class Calculator {
             }
         });
         
+        // Clear button with AC (All Clear) on double press
+        this.clearButton.addEventListener('click', () => {
+            const now = Date.now();
+            const timeSinceLastClear = now - this.lastClearTime;
+            
+            // If clicked within 500ms, it's an AC (All Clear)
+            if (timeSinceLastClear < 500) {
+                this.allClear();
+                clearTimeout(this.clearTimeout);
+            } else {
+                // First press: Clear current display
+                this.clear();
+                this.lastClearTime = now;
+                
+                // Set timeout to reset the clear state
+                clearTimeout(this.clearTimeout);
+                this.clearTimeout = setTimeout(() => {
+                    this.clearButton.textContent = 'C';
+                }, 500);
+            }
+        });
+        
         // Operator buttons
         document.querySelectorAll('.btn-operator').forEach(button => {
             button.addEventListener('click', () => {
@@ -55,11 +80,6 @@ class Calculator {
                 this.handleOperator(op);
                 this.animateButton(button);
             });
-        });
-        
-        // Clear button
-        document.getElementById('clear').addEventListener('click', () => {
-            this.clear();
         });
         
         // Equals button - triggers Easter eggs
@@ -158,6 +178,18 @@ class Calculator {
         this.operator = null;
         this.waitingForOperand = false;
         this.updateDisplay();
+        this.clearButton.textContent = 'AC';
+    }
+    
+    allClear() {
+        // All Clear - reset everything
+        this.currentValue = '0';
+        this.previousValue = null;
+        this.operator = null;
+        this.waitingForOperand = false;
+        this.updateDisplay();
+        this.clearButton.textContent = 'C';
+        this.lastClearTime = 0;
     }
     
     toggleSign() {
