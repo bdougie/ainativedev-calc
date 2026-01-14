@@ -45,6 +45,9 @@ class Calculator {
                 }
             } else if (event.key === 'Escape' || event.key === 'c' || event.key === 'C') {
                 this.clear();
+            } else if (event.key === 'Backspace' || event.key === 'Delete') {
+                event.preventDefault(); // Prevent browser back navigation
+                this.handleBackspace();
             } else if (event.key === '+' || event.key === '-' || event.key === '*' || event.key === '/') {
                 const opMap = {'+': '+', '-': '−', '*': '×', '/': '÷'};
                 this.handleOperator(opMap[event.key]);
@@ -199,6 +202,23 @@ class Calculator {
     
     percentage() {
         this.currentValue = String(parseFloat(this.currentValue) / 100);
+        this.updateDisplay();
+    }
+    
+    handleBackspace() {
+        // Don't allow backspace when waiting for operand or when display shows just "0"
+        if (this.waitingForOperand || this.currentValue === '0') {
+            return;
+        }
+        
+        // Remove the last character
+        this.currentValue = this.currentValue.slice(0, -1);
+        
+        // If display becomes empty, set it to "0"
+        if (this.currentValue === '' || this.currentValue === '-') {
+            this.currentValue = '0';
+        }
+        
         this.updateDisplay();
     }
     
